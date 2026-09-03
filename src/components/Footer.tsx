@@ -20,17 +20,16 @@ export const Footer: React.FC = () => {
                   TERRA IGNIS
                 </span>
                 <span className="text-xs uppercase tracking-wider text-[#C8102E] font-bold block">
-                  Ohňová, kejklířská a fakírská show
+                  Lorem ipsum dolor sit amet
                 </span>
               </div>
             </div>
             <p className="font-serif-body text-base text-neutral-400 max-w-md leading-relaxed">
-              Ohnivé prvky bez použití pyrotechniky, dechberoucí kostýmy inspirované fantasy světem
-              a příběhy plné emocí — pro svatby, slavnosti i firemní akce.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
             </p>
             <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400 mt-3">
               <MapPin className="w-4 h-4 text-[#C8102E]" />
-              <span>Mohelnice (působíme po celé ČR) • Působíme od roku 2022</span>
+              <span>Lorem ipsum • Lorem ipsum</span>
             </div>
           </div>
 
@@ -58,21 +57,21 @@ export const Footer: React.FC = () => {
           {/* Contact */}
           <div className="md:col-span-3 space-y-2">
             <a
-              href="tel:+420606310100"
+              href="tel:+420000000000"
               className="flex items-center gap-3 p-3 bg-neutral-900 border border-neutral-800 hover:border-[#C8102E] transition-colors text-sm font-bold text-white group"
             >
               <Phone className="w-4 h-4 text-[#C8102E] group-hover:scale-110 transition-transform" />
-              <span>+420 606 310 100</span>
+              <span>+420 000 000 000</span>
             </a>
             <a
-              href="tel:+420704792974"
+              href="tel:+420111111111"
               className="flex items-center gap-3 p-3 bg-neutral-900 border border-neutral-800 hover:border-[#C8102E] transition-colors text-sm font-bold text-white group"
             >
               <Phone className="w-4 h-4 text-[#C8102E] group-hover:scale-110 transition-transform" />
-              <span>+420 704 792 974</span>
+              <span>+420 111 111 111</span>
             </a>
             <p className="text-xs text-neutral-500 pt-1">
-              Po–ne, ověření termínu i detailů show.
+              Lorem ipsum dolor sit amet.
             </p>
           </div>
 
@@ -88,7 +87,7 @@ export const Footer: React.FC = () => {
               <ExternalLink className="w-4 h-4" />
             </a>
             <p className="text-xs text-neutral-500 mt-3">
-              Fotky, videa a novinky z našich vystoupení.
+              Lorem ipsum dolor sit amet.
             </p>
           </div>
 
@@ -97,10 +96,10 @@ export const Footer: React.FC = () => {
         {/* Copyright */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
           <div>
-            © {new Date().getFullYear()} Terra Ignis. Všechna práva vyhrazena.
+            © {new Date().getFullYear()} Lorem ipsum.
           </div>
           <div className="text-[#C8102E] font-semibold">
-            Mohelnice 🔥
+            Lorem ipsum
           </div>
         </div>
 

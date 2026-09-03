@@ -21,7 +21,7 @@ export const LogoImg: React.FC<LogoImgProps> = ({ size = 48, className = '', id 
   return (
     <img
       src={SRC}
-      alt="Logo Terra Ignis — heraldický štít s rukou a třemi plameny"
+      alt="Lorem ipsum"
       id={id}
       width={Math.round(size * (732 / 720))}
       height={size}

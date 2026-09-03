@@ -8,7 +8,7 @@ const CARDS = [
   { title: 'Lorem ipsum III', text: 'Ut enim ad minim veniam, quis nostrud exercitation.' },
 ];
 
-/** O nás — minimal lorem demo. */
+/** About — minimal demo. */
 export const AboutPage: React.FC = () => {
   return (
     <section className="py-14 md:py-20 bg-[#C8102E] text-white relative overflow-hidden woodcut-hatch-dark border-b-4 border-neutral-900">

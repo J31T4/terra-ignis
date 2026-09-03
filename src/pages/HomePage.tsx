@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { LogoImg } from '../components/LogoImg';
 import { staggerContainer, fadeRise } from '../components/motion';
 
-/** Home — minimal lorem demo (pozornost na přechod, ne na obsah). */
+/** Home — minimal demo. */
 export const HomePage: React.FC = () => {
   const reduced = useReducedMotion();
 

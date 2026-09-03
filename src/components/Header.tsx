@@ -47,11 +47,11 @@ export const Header: React.FC = () => {
                 TERRA IGNIS
               </span>
               <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-[#C8102E] text-white">
-                Mohelnice
+                Lorem
               </span>
             </div>
             <p className="text-xs text-neutral-600 font-serif-body italic tracking-wide hidden md:block">
-              Ohňová, kejklířská a fakírská show
+              Lorem ipsum dolor sit amet
             </p>
           </div>
         </Link>
