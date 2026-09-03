@@ -2,7 +2,7 @@
 
 Předběžný náhled webu pro ohnivou show Terra Ignis (Mohelnice).
 
-- **Živá verze:** https://matjucha.github.io/terra-ignis/ (deploy z `main` přes GitHub Actions)
+- **Živá verze:** https://j31t4.github.io/terra-ignis/ (deploy z `main` přes GitHub Actions)
 - **Stav obsahu:** texty jsou zatím `lorem ipsum` placeholdery, slouží ke schválení designu a přechodů mezi stránkami.
 
 ## Vývoj
