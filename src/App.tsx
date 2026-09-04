@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, useReducedMotion, useIsPresent } from 'motion/react';
+import { AnimatePresence, motion, useIsPresent } from 'motion/react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ScrollProgress } from './components/ScrollProgress';
@@ -32,44 +32,80 @@ function ScrollToTop() {
 
 /* Flame tongues: { left%, width, height, color (gold/orange/red), dur, delay } */
 const BURN_TONGUES: {
-  left: string; w: number; h: number;
+  left: string; w: number; h: number; bot: number;
   color: 'gold' | 'orange' | 'red'; dur: number; delay: number;
 }[] = [
-  // GOLDEN tips — tallest, spread across full width
-  { left: '2%',  w: 22, h: 280, color: 'gold', dur: 0.38, delay: 0.00 },
-  { left: '10%', w: 18, h: 240, color: 'gold', dur: 0.32, delay: 0.06 },
-  { left: '18%', w: 25, h: 300, color: 'gold', dur: 0.40, delay: 0.02 },
-  { left: '28%', w: 20, h: 260, color: 'gold', dur: 0.35, delay: 0.08 },
-  { left: '38%', w: 24, h: 320, color: 'gold', dur: 0.42, delay: 0.00 },
-  { left: '48%', w: 18, h: 250, color: 'gold', dur: 0.30, delay: 0.10 },
-  { left: '58%', w: 26, h: 290, color: 'gold', dur: 0.36, delay: 0.04 },
-  { left: '68%', w: 20, h: 270, color: 'gold', dur: 0.38, delay: 0.07 },
-  { left: '78%', w: 22, h: 310, color: 'gold', dur: 0.34, delay: 0.02 },
-  { left: '88%', w: 20, h: 260, color: 'gold', dur: 0.40, delay: 0.05 },
-  { left: '96%', w: 18, h: 230, color: 'gold', dur: 0.33, delay: 0.09 },
-  // ORANGE mid-layer — offset positions, slightly shorter
-  { left: '5%',  w: 28, h: 220, color: 'orange', dur: 0.30, delay: 0.03 },
-  { left: '15%', w: 24, h: 200, color: 'orange', dur: 0.28, delay: 0.07 },
-  { left: '25%', w: 30, h: 230, color: 'orange', dur: 0.32, delay: 0.01 },
-  { left: '35%', w: 26, h: 210, color: 'orange', dur: 0.26, delay: 0.09 },
-  { left: '45%', w: 28, h: 240, color: 'orange', dur: 0.34, delay: 0.04 },
-  { left: '55%', w: 24, h: 200, color: 'orange', dur: 0.30, delay: 0.08 },
-  { left: '65%', w: 30, h: 220, color: 'orange', dur: 0.28, delay: 0.02 },
-  { left: '75%', w: 26, h: 230, color: 'orange', dur: 0.32, delay: 0.06 },
-  { left: '85%', w: 28, h: 210, color: 'orange', dur: 0.30, delay: 0.05 },
-  { left: '95%', w: 24, h: 190, color: 'orange', dur: 0.26, delay: 0.10 },
-  // RED core — shortest, widest, darkest
-  { left: '0%',  w: 32, h: 160, color: 'red', dur: 0.25, delay: 0.05 },
-  { left: '12%', w: 34, h: 170, color: 'red', dur: 0.22, delay: 0.08 },
-  { left: '24%', w: 30, h: 150, color: 'red', dur: 0.28, delay: 0.02 },
-  { left: '36%', w: 36, h: 180, color: 'red', dur: 0.24, delay: 0.06 },
-  { left: '48%', w: 32, h: 160, color: 'red', dur: 0.26, delay: 0.00 },
-  { left: '60%', w: 34, h: 170, color: 'red', dur: 0.22, delay: 0.07 },
-  { left: '72%', w: 30, h: 155, color: 'red', dur: 0.28, delay: 0.03 },
-  { left: '84%', w: 36, h: 175, color: 'red', dur: 0.24, delay: 0.09 },
-  { left: '96%', w: 32, h: 150, color: 'red', dur: 0.26, delay: 0.04 },
+  // GOLDEN tips — méně & širší (8 ks jako na referenci), esíčka čitelná.
+  // bot = roztřepený spodek: každý jazyk začíná jinde, žádná rovná linka.
+  { left: '1%',  w: 66, h: 265, bot: -12, color: 'gold', dur: 0.38, delay: 0.00 },
+  { left: '13%', w: 58, h: 300, bot: -35, color: 'gold', dur: 0.32, delay: 0.06 },
+  { left: '26%', w: 70, h: 280, bot: -20, color: 'gold', dur: 0.40, delay: 0.02 },
+  { left: '38%', w: 60, h: 295, bot: -42, color: 'gold', dur: 0.35, delay: 0.08 },
+  { left: '51%', w: 70, h: 270, bot: -15, color: 'gold', dur: 0.42, delay: 0.00 },
+  { left: '63%', w: 59, h: 290, bot: -38, color: 'gold', dur: 0.30, delay: 0.10 },
+  { left: '76%', w: 66, h: 275, bot: -22, color: 'gold', dur: 0.36, delay: 0.04 },
+  { left: '88%', w: 58, h: 285, bot: -30, color: 'gold', dur: 0.40, delay: 0.05 },
+  // ORANGE mid-layer — offset, širší
+  { left: '7%',  w: 72, h: 230, bot: -8,  color: 'orange', dur: 0.30, delay: 0.03 },
+  { left: '20%', w: 66, h: 210, bot: -25, color: 'orange', dur: 0.28, delay: 0.07 },
+  { left: '32%', w: 74, h: 240, bot: -12, color: 'orange', dur: 0.32, delay: 0.01 },
+  { left: '45%', w: 68, h: 215, bot: -30, color: 'orange', dur: 0.26, delay: 0.09 },
+  { left: '57%', w: 74, h: 245, bot: -10, color: 'orange', dur: 0.34, delay: 0.04 },
+  { left: '70%', w: 66, h: 220, bot: -22, color: 'orange', dur: 0.28, delay: 0.02 },
+  { left: '82%', w: 70, h: 235, bot: -18, color: 'orange', dur: 0.32, delay: 0.06 },
+  // RED core — široká oblá hmota vzadu
+  { left: '0%',  w: 48, h: 160, bot: -5,  color: 'red', dur: 0.25, delay: 0.05 },
+  { left: '18%', w: 52, h: 175, bot: -15, color: 'red', dur: 0.22, delay: 0.08 },
+  { left: '36%', w: 50, h: 155, bot: -8,  color: 'red', dur: 0.28, delay: 0.02 },
+  { left: '54%', w: 52, h: 180, bot: -18, color: 'red', dur: 0.24, delay: 0.06 },
+  { left: '72%', w: 50, h: 160, bot: -6,  color: 'red', dur: 0.26, delay: 0.00 },
+  { left: '88%', w: 46, h: 170, bot: -12, color: 'red', dur: 0.22, delay: 0.07 },
 ];
 
+/* Down-licking drops: malé plamínky pod čarou (stránka "hoří" i dolů) */
+const BURN_DROPS: {
+  left: string; w: number; h: number; bot: number;
+  color: 'gold' | 'orange'; dur: number; delay: number;
+}[] = [
+  { left: '6%',  w: 24, h: 110, bot: -70,  color: 'gold',   dur: 0.22, delay: 0.02 },
+  { left: '19%', w: 20, h: 90,  bot: -55,  color: 'orange', dur: 0.26, delay: 0.07 },
+  { left: '32%', w: 26, h: 120, bot: -85,  color: 'gold',   dur: 0.20, delay: 0.00 },
+  { left: '45%', w: 21, h: 95,  bot: -60,  color: 'orange', dur: 0.24, delay: 0.05 },
+  { left: '58%', w: 26, h: 125, bot: -88,  color: 'gold',   dur: 0.22, delay: 0.09 },
+  { left: '71%', w: 20, h: 92,  bot: -58,  color: 'orange', dur: 0.26, delay: 0.03 },
+  { left: '83%', w: 24, h: 115, bot: -78,  color: 'gold',   dur: 0.20, delay: 0.06 },
+  { left: '94%', w: 20, h: 88,  bot: -55,  color: 'orange', dur: 0.24, delay: 0.01 },
+];
+
+/* Vločky k mlze: 12 ks, padají pomalu s oparem */
+const BURN_ASH_AFTER: {
+  left: string; top: string; size: number; tone: 'grey' | 'dark';
+  delay: number; dur: number; dx: number; dy: number; drift: number;
+}[] = [
+  { left: '7%',  top: '6%',  size: 8, tone: 'grey', delay: 0.20, dur: 1.9, dx: 30,  dy: 430, drift: 16 },
+  { left: '16%', top: '20%', size: 6, tone: 'dark', delay: 0.55, dur: 1.6, dx: -26, dy: 390, drift: -14 },
+  { left: '25%', top: '3%',  size: 9, tone: 'grey', delay: 0.05, dur: 2.1, dx: 24,  dy: 460, drift: 18 },
+  { left: '36%', top: '14%', size: 6, tone: 'dark', delay: 0.70, dur: 1.5, dx: -30, dy: 380, drift: -16 },
+  { left: '47%', top: '8%',  size: 10, tone: 'grey', delay: 0.15, dur: 2.0, dx: -28, dy: 445, drift: 16 },
+  { left: '56%', top: '22%', size: 6, tone: 'dark', delay: 0.80, dur: 1.6, dx: 26,  dy: 395, drift: -14 },
+  { left: '65%', top: '5%',  size: 9, tone: 'grey', delay: 0.30, dur: 1.9, dx: 22,  dy: 435, drift: 18 },
+  { left: '74%', top: '16%', size: 6, tone: 'dark', delay: 0.90, dur: 1.5, dx: -28, dy: 375, drift: -14 },
+  { left: '84%', top: '7%',  size: 8, tone: 'grey', delay: 0.10, dur: 2.1, dx: -24, dy: 450, drift: -16 },
+  { left: '91%', top: '24%', size: 6, tone: 'dark', delay: 0.60, dur: 1.7, dx: 28,  dy: 400, drift: 14 },
+  { left: '40%', top: '28%', size: 7, tone: 'dark', delay: 0.95, dur: 1.5, dx: 20,  dy: 365, drift: 12 },
+  { left: '69%', top: '30%', size: 7, tone: 'grey', delay: 0.40, dur: 1.8, dx: -18, dy: 405, drift: -12 },
+];
+
+/* Mlha po shoření: 4 velké jemné plochy (žádné zrno) */
+const BURN_MIST: {
+  left: string; top: string; w: number; h: number; tone: 'grey' | 'dark';
+  delay: number; dur: number; dx: number; dy: number;
+}[] = [
+  { left: '-5%', top: '5%',  w: 750, h: 460, tone: 'grey', delay: 0.10, dur: 2.6, dx: 90,  dy: 260 },
+  { left: '30%', top: '25%', w: 850, h: 520, tone: 'dark', delay: 0.45, dur: 2.4, dx: -110, dy: 300 },
+  { left: '55%', top: '0%',  w: 700, h: 440, tone: 'grey', delay: 0.80, dur: 2.2, dx: 70,  dy: 240 },
+  { left: '20%', top: '45%', w: 750, h: 450, tone: 'dark', delay: 1.10, dur: 2.0, dx: -80,  dy: 200 },
+];
 const BURN_SPARKS = [
   { left: '4%', size: 4, delay: 0.03, dur: 0.30, dx: 14, dy: -160 },
   { left: '12%', size: 3, delay: 0.08, dur: 0.28, dx: -10, dy: -130 },
@@ -117,12 +153,51 @@ const BURN_EMBERS = [
  */
 function BurnStage({ children }: { children: ReactNode }) {
   const isPresent = useIsPresent();
-  const reduced = useReducedMotion();
-  const burning = !isPresent && !reduced;
+  // Oheň hraje VŽDY (nerespektujeme systémové "omezit animace" — celý web
+  // je postavený na hořícím přechodu, bez něj nedává smysl).
+  const burning = !isPresent;
 
   return (
     <div className={`page-burn${isPresent ? '' : ' is-exiting'}`}>
       <div className="page-burn-paper">{children}</div>
+      {/* Mlha po shoření — hraje i po dohoření vlny */}
+      {isPresent && (
+        <div className="page-ash-after" aria-hidden="true">
+          {BURN_MIST.map((m, i) => (
+            <span
+              key={`mist-${i}`}
+              className={`burn-mist burn-mist--${m.tone}`}
+              style={{
+                left: m.left,
+                top: m.top,
+                width: `${m.w}px`,
+                height: `${m.h}px`,
+                '--mist-delay': `${m.delay}s`,
+                '--mist-dur': `${m.dur}s`,
+                '--mist-dx': `${m.dx}px`,
+                '--mist-dy': `${m.dy}px`,
+              } as CSSProperties}
+            />
+          ))}
+          {BURN_ASH_AFTER.map((f, i) => (
+            <span
+              key={`ash-after-${i}`}
+              className={`burn-ash burn-ash--${f.tone}`}
+              style={{
+                left: f.left,
+                top: f.top,
+                width: `${f.size}px`,
+                height: `${f.size}px`,
+                '--ash-delay': `${f.delay}s`,
+                '--ash-dur': `${f.dur}s`,
+                '--ash-dx': `${f.dx}px`,
+                '--ash-dy': `${f.dy}px`,
+                '--ash-drift': `${f.drift}px`,
+              } as CSSProperties}
+            />
+          ))}
+        </div>
+      )}
       {burning && (
         <div className="page-burn-edge" aria-hidden="true">
           {/* Individual flame tongues */}
@@ -134,8 +209,26 @@ function BurnStage({ children }: { children: ReactNode }) {
                 left: t.left,
                 width: `${t.w}px`,
                 height: `${t.h}px`,
+                bottom: `${t.bot}px`,
                 '--ft-dur': `${t.dur}s`,
                 '--ft-delay': `${t.delay}s`,
+              } as CSSProperties}
+            />
+          ))}
+
+          {/* Down-licking drops — malé plamínky pod čarou */}
+          {BURN_DROPS.map((d, i) => (
+            <div
+              key={`drop-${i}`}
+              className={`ft ft--down ft--${d.color}`}
+              style={{
+                left: d.left,
+                width: `${d.w}px`,
+                height: `${d.h}px`,
+                bottom: `${d.bot}px`,
+                '--ft-dur': `${d.dur}s`,
+                '--ft-delay': `${d.delay}s`,
+                '--ft-anim': d.color === 'gold' ? 'ti-drop-gold' : 'ti-drop-orange',
               } as CSSProperties}
             />
           ))}
@@ -190,7 +283,6 @@ function BurnStage({ children }: { children: ReactNode }) {
 
 export default function App() {
   const location = useLocation();
-  const reduced = useReducedMotion();
   const isHome = location.pathname === '/';
 
   return (
@@ -207,7 +299,7 @@ export default function App() {
         mode="sync": odchozí stránka zůstává v DOM jako absolutní překryv
         (z-30, main je relative) a shoří CSS maskou zdola nahoru (~600ms),
         pod ní už stojí nová stránka (scale 0.99->1, opacity 0.6->1).
-        reduced-motion: obě varianty jen 150ms fade, žádné hoření.
+        Oheň hraje vždy (i při systémovém "omezit animace").
       */}
       <main className="flex-grow relative">
         <AnimatePresence mode="sync" initial={false}>
@@ -219,27 +311,21 @@ export default function App() {
             /* Nová stránka: od prvního snímku čitelná pod hořícím papírem
                (opacity 0.85, scale 0.99) a plynule se doklidí — stojí POD
                papírem od začátku, oheň ji jen odhaluje. */
-            initial={reduced ? { opacity: 0 } : { opacity: 0.85, scale: 0.99 }}
-            animate={reduced ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+            initial={{ opacity: 0.85, scale: 0.99 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={
-              reduced
-                ? { opacity: 0, zIndex: 40, transition: { duration: 0.15, ease: 'easeOut' } }
-                : // Exit končí PŘESNĚ s maskou (0.7s) + fade posledních 0.1s:
-                  // papír nesmí zůstat viset jako tmavý závoj po dohoření
-                  // (brightness 0.05 na konci masky). opacity [1,1,0] s časy
-                  // [0,0.85,1] = plně viditelný během hoření, rozpuštění
-                  // jen v ocase. zIndex 40 = papír nad papírem, pod headerem.
-                  {
-                    opacity: [1, 1, 0],
-                    zIndex: 40,
-                    transition: { duration: 0.7, times: [0, 0.85, 1], ease: 'linear' },
-                  }
+              // Exit končí PŘESNĚ s maskou (0.7s) + fade posledních 0.1s:
+              // papír nesmí zůstat viset jako tmavý závoj po dohoření
+              // (brightness 0.05 na konci masky). opacity [1,1,0] s časy
+              // [0,0.85,1] = plně viditelný během hoření, rozpuštění
+              // jen v ocase. zIndex 40 = papír nad papírem, pod headerem.
+              {
+                opacity: [1, 1, 0],
+                zIndex: 40,
+                transition: { duration: 0.7, times: [0, 0.85, 1], ease: 'linear' },
+              }
             }
-            transition={
-              reduced
-                ? { duration: 0.15, ease: 'easeOut' }
-                : { duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }
-            }
+            transition={{ duration: 0.7, ease: [0.22, 0.61, 0.36, 1] }}
           >
             <BurnStage>
               <Routes location={location}>

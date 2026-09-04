@@ -261,8 +261,8 @@
 
 @keyframes ti-charred-show {
   0%  { opacity: 0; }
-  15% { opacity: 0.8; }
-  60% { opacity: 0.6; }
+  15% { opacity: 0.55; }
+  60% { opacity: 0.4; }
   100% { opacity: 0; }
 }
 
@@ -274,8 +274,14 @@
   top: 100vh;
   height: 350px;
   pointer-events: none;
-  animation: ti-flame-edge-rise 0.7s cubic-bezier(0.4, 0, 0.6, 1) 1 forwards;
+  animation: ti-flame-edge-rise 0.7s cubic-bezier(0.4, 0, 0.6, 1) 1 forwards,
+             ti-edge-sway 0.32s ease-in-out infinite alternate;
   z-index: 2;
+}
+
+@keyframes ti-edge-sway {
+  0%   { transform: translateX(-9px); }
+  100% { transform: translateX(9px); }
 }
 
 @keyframes ti-flame-edge-rise {
@@ -289,10 +295,12 @@
   bottom: 0;
   pointer-events: none;
   transform-origin: bottom center;
-  /* Illustrated teardrop/flame shape via border-radius (statický tvar —
-     radius se NEanimuje: animace border-radius nutí překreslovat každý
-     snímek a sráží fps. Organiku drží transform flicker v barvách.) */
-  border-radius: 50% 50% 20% 20% / 70% 70% 30% 30%;
+  /* Plameny NAD bublinami (bubliny z-index 1) — spodní hrana se taví
+     do plamenů, žádná rovná linka. */
+  z-index: 2;
+  /* Špičatý plamen místo kapky — clip-path je statický (levný, nepřekresluje
+     se každý snímek), organiku drží transform flicker. Každá barva má jiný
+     sklon, ať to není plot. */
 }
 
 @keyframes ti-tongue-radius {
@@ -303,68 +311,89 @@
   100% { border-radius: 52% 48% 18% 22% / 72% 68% 32% 28%; }
 }
 
-/* GOLDEN tips — tallest, brightest. Kreslený styl: ploché pásy (hard stopy)
-   v paletě stránky + tmavá linka kolem (ladí k borderům a erbu). */
+/* GOLDEN tips — komiksový jazyk: esíčko vpravo, žluté břicho, tmavá linka */
 .ft--gold {
+  clip-path: polygon(25% 100%, 15% 80%, 22% 62%, 35% 48%, 38% 32%, 50% 18%, 60% 8%, 66% 0%, 74% 2%, 70% 12%, 62% 26%, 54% 42%, 55% 58%, 62% 74%, 75% 88%, 82% 100%);
   background: linear-gradient(
     0deg,
-    #E85D04 0 30%,
-    #F48C06 30% 55%,
-    #FFBA08 55% 80%,
-    #FFE9B0 80% 100%
+    #FF9E00 0%,
+    #FFD23F 30%,
+    #FFE45E 55%,
+    #FB8500 80%,
+    rgba(230, 57, 4, 0) 100%
   );
-  border: 2px solid #6b1503;
-  filter: drop-shadow(0 -6px 14px rgba(200, 16, 46, 0.75));
+  filter: drop-shadow(1.5px 1.5px 0 #7f1d1d) drop-shadow(-1.5px -1.5px 0 #7f1d1d);
   animation: var(--ft-anim, ti-tongue-gold) var(--ft-dur, 0.35s) ease-in-out infinite alternate;
   animation-delay: var(--ft-delay, 0s);
 }
 
 @keyframes ti-tongue-gold {
-  0%   { transform: scaleY(0.7) scaleX(1) skewX(0deg); opacity: 0.8; }
-  33%  { transform: scaleY(1.05) scaleX(0.92) skewX(3deg); opacity: 1; }
-  66%  { transform: scaleY(0.85) scaleX(1.06) skewX(-2deg); opacity: 0.9; }
-  100% { transform: scaleY(1.1) scaleX(0.95) skewX(1deg); opacity: 0.85; }
+  0%   { transform: scaleY(0.45) scaleX(1.05) skewX(-9deg) translateX(-11px) rotate(-4deg); opacity: 0.8; }
+  33%  { transform: scaleY(1.2) scaleX(0.86) skewX(8deg) translateX(10px) rotate(3deg); opacity: 1; }
+  66%  { transform: scaleY(0.65) scaleX(1.12) skewX(-5deg) translateX(-7px) rotate(-2deg); opacity: 0.9; }
+  100% { transform: scaleY(1.24) scaleX(0.9) skewX(10deg) translateX(9px) rotate(5deg); opacity: 0.85; }
 }
 
-/* ORANGE mid-layer — burgundy stránky místo oranžové */
+/* ORANGE mid-layer — esíčko vlevo (zrcadlo zlata), tmavá linka */
 .ft--orange {
+  clip-path: polygon(75% 100%, 85% 80%, 78% 62%, 65% 48%, 62% 32%, 50% 18%, 40% 8%, 32% 0%, 26% 2%, 30% 12%, 38% 26%, 46% 42%, 45% 58%, 38% 74%, 25% 88%, 18% 100%);
   background: linear-gradient(
     0deg,
-    #7A0C10 0 30%,
-    #C8102E 30% 60%,
-    #F48C06 60% 85%,
-    #FFBA08 85% 100%
+    #E63904 0%,
+    #FB8500 35%,
+    #FFB703 60%,
+    rgba(200, 40, 0, 0) 100%
   );
-  border: 2px solid #4a0808;
-  filter: drop-shadow(0 -4px 12px rgba(200, 16, 46, 0.8));
+  filter: drop-shadow(1.5px 1.5px 0 #7f1d1d) drop-shadow(-1.5px -1.5px 0 #7f1d1d);
   animation: var(--ft-anim, ti-tongue-orange) var(--ft-dur, 0.3s) ease-in-out infinite alternate;
   animation-delay: var(--ft-delay, 0.05s);
 }
 
 @keyframes ti-tongue-orange {
-  0%   { transform: scaleY(0.65) scaleX(1) skewX(0deg); opacity: 0.7; }
-  40%  { transform: scaleY(1) scaleX(0.88) skewX(-4deg); opacity: 0.95; }
-  70%  { transform: scaleY(0.8) scaleX(1.08) skewX(2deg); opacity: 0.85; }
-  100% { transform: scaleY(1.05) scaleX(0.93) skewX(-1deg); opacity: 0.75; }
+  0%   { transform: scaleY(0.4) scaleX(1.05) skewX(8deg) translateX(10px) rotate(4deg); opacity: 0.7; }
+  40%  { transform: scaleY(1.18) scaleX(0.84) skewX(-10deg) translateX(-11px) rotate(-3deg); opacity: 0.95; }
+  70%  { transform: scaleY(0.6) scaleX(1.12) skewX(6deg) translateX(7px) rotate(2deg); opacity: 0.85; }
+  100% { transform: scaleY(1.22) scaleX(0.88) skewX(-8deg) translateX(-9px) rotate(-5deg); opacity: 0.75; }
 }
 
-/* RED core — shortest, darkest. Plochý tmavý základ kresleného ohně. */
+/* RED core — široký oblý základ, tupější špička, bez linky (hmota vzadu) */
 .ft--red {
+  clip-path: polygon(10% 100%, 6% 75%, 14% 55%, 24% 40%, 32% 25%, 44% 10%, 52% 0%, 58% 10%, 62% 25%, 68% 40%, 78% 55%, 88% 72%, 92% 88%, 90% 100%);
   background: linear-gradient(
     0deg,
-    #2a0808 0 25%,
-    #7A0C10 25% 60%,
-    #C8102E 60% 100%
+    #7A0C10 0%,
+    #C8102E 45%,
+    rgba(150, 15, 20, 0) 100%
   );
-  filter: drop-shadow(0 -3px 8px rgba(122, 12, 16, 0.85));
   animation: var(--ft-anim, ti-tongue-red) var(--ft-dur, 0.25s) ease-in-out infinite alternate;
   animation-delay: var(--ft-delay, 0.08s);
 }
 
 @keyframes ti-tongue-red {
-  0%   { transform: scaleY(0.6) scaleX(1) skewX(0deg); opacity: 0.6; }
-  50%  { transform: scaleY(1) scaleX(1.1) skewX(3deg); opacity: 0.85; }
-  100% { transform: scaleY(0.75) scaleX(0.9) skewX(-2deg); opacity: 0.7; }
+  0%   { transform: scaleY(0.4) scaleX(1.05) skewX(6deg) translateX(7px) rotate(3deg); opacity: 0.6; }
+  50%  { transform: scaleY(1.28) scaleX(1.06) skewX(-8deg) translateX(-8px) rotate(-3deg); opacity: 0.85; }
+  100% { transform: scaleY(0.55) scaleX(0.9) skewX(8deg) translateX(7px) rotate(4deg); opacity: 0.7; }
+}
+
+/* --- Dolů olizující plamínky: stránka pod čarou "hoří". Otočené o 180°
+   (rotace zapečená v keyframes, protože flicker transform by ji přebil),
+   origin nahoře — rostou od čáry dolů. --ft-anim se předává inline. --- */
+.ft--down {
+  transform-origin: top center;
+}
+
+@keyframes ti-drop-gold {
+  0%   { transform: scaleY(0.55) rotate(180deg) skewX(5deg) translateX(4px); opacity: 0.85; }
+  40%  { transform: scaleY(1.15) rotate(180deg) skewX(-6deg) translateX(-4px); opacity: 1; }
+  70%  { transform: scaleY(0.7) scaleX(1.1) rotate(180deg) skewX(3deg) translateX(3px); opacity: 0.9; }
+  100% { transform: scaleY(1.2) rotate(180deg) skewX(-4deg) translateX(-3px); opacity: 0.9; }
+}
+
+@keyframes ti-drop-orange {
+  0%   { transform: scaleY(0.5) rotate(180deg) skewX(-5deg) translateX(-4px); opacity: 0.8; }
+  40%  { transform: scaleY(1.2) rotate(180deg) skewX(6deg) translateX(4px); opacity: 0.95; }
+  70%  { transform: scaleY(0.65) scaleX(1.1) rotate(180deg) skewX(-3deg) translateX(-3px); opacity: 0.85; }
+  100% { transform: scaleY(1.15) rotate(180deg) skewX(5deg) translateX(3px); opacity: 0.85; }
 }
 
 /* --- Glow: blazing light below the fire front --- */
@@ -372,15 +401,15 @@
   position: absolute;
   left: -30%;
   right: -30%;
-  height: 120px;
-  bottom: -40px;
+  height: 150px;
+  bottom: -50px;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 186, 8, 1) 0%,
-    rgba(244, 140, 6, 0.85) 25%,
-    rgba(200, 16, 46, 0.55) 55%,
-    rgba(122, 12, 16, 0.28) 75%,
+    rgba(255, 246, 200, 1) 0%,
+    rgba(255, 200, 60, 0.9) 30%,
+    rgba(244, 140, 6, 0.6) 55%,
+    rgba(200, 16, 46, 0.3) 78%,
     transparent 100%
   );
   filter: blur(18px);
@@ -404,6 +433,67 @@
   8%   { opacity: 1; }
   75%  { opacity: 0.8; }
   100% { opacity: 0; }
+}
+
+/* --- Mlha po shoření: místo zrnitých vloček jemný šedý opar.
+   3 velké rozmazané plochy, pomalý snos dolů (~2.5s) na nové stránce
+   (přežije ohnivou vlnu). Maximum jemnosti — opacity jen do 0.35. --- */
+.page-ash-after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.burn-mist {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(35px);
+  will-change: transform, opacity;
+  animation: ti-mist-drift var(--mist-dur, 2.5s) ease-in-out var(--mist-delay, 0s) 1 forwards;
+}
+
+.burn-mist--grey {
+  background: radial-gradient(ellipse at center, rgba(150,150,150,0.62) 0%, rgba(150,150,150,0.26) 55%, transparent 78%);
+}
+
+.burn-mist--dark {
+  background: radial-gradient(ellipse at center, rgba(60,60,60,0.55) 0%, rgba(60,60,60,0.22) 55%, transparent 78%);
+}
+
+@keyframes ti-mist-drift {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  20%  { opacity: 1; }
+  70%  { transform: translate(calc(var(--mist-dx) * 0.7), calc(var(--mist-dy) * 0.7)); opacity: 0.8; }
+  100% { transform: translate(var(--mist-dx), var(--mist-dy)); opacity: 0; }
+}
+
+/* --- Vločky k mlze: padají pomalu s oparem na nové stránce (~2s) --- */
+.burn-ash {
+  position: absolute;
+  border-radius: 40% 60% 55% 45%;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: ti-ash-settle var(--ash-dur, 1.8s) ease-in var(--ash-delay, 0s) 1 forwards;
+}
+
+.burn-ash--grey {
+  background: radial-gradient(circle, rgba(170,170,170,0.95) 0%, rgba(100,100,100,0.6) 60%, transparent 72%);
+}
+
+.burn-ash--dark {
+  background: radial-gradient(circle, rgba(45,45,45,0.95) 0%, rgba(20,20,20,0.55) 60%, transparent 72%);
+}
+
+@keyframes ti-ash-settle {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+  12%  { opacity: 0.9; }
+  75%  { transform: translate(calc(var(--ash-dx) * 0.7 + var(--ash-drift, 10px)), calc(var(--ash-dy) * 0.7)) scale(0.9); opacity: 0.75; }
+  100% { transform: translate(var(--ash-dx), var(--ash-dy)) scale(0.75); opacity: 0; }
 }
 
 /* --- Embers: glowing charred bits rising --- */
@@ -490,25 +580,8 @@
   }
 }
 
-/* --- Reduced motion: prostý fade --- */
-@media (prefers-reduced-motion: reduce) {
-  .page-burn.is-exiting .page-burn-paper {
-    animation: none !important;
-    -webkit-mask-image: none !important;
-    mask-image: none !important;
-    clip-path: inset(0 0 100% 0);
-    filter: none !important;
-    transition: clip-path 0.15s ease-out;
-  }
-  .page-burn-edge,
-  .ft,
-  .page-burn-charred,
-  .burn-glow,
-  .burn-ember,
-  .burn-spark {
-    display: none !important;
-  }
-}
+/* --- Reduced motion: oheň hraje VŽDY (záměr — web je postavený na
+   hořícím přechodu). Necháváme jen klidný scroll. --- */
 
 /* Smooth scroll na anchor odkazy + pristupove preference */
 html {
