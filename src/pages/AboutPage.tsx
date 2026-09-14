@@ -21,7 +21,7 @@ export const AboutPage: React.FC = () => {
           </FlameFlash>
         </Reveal>
 
-        <Reveal className="bg-white text-neutral-900 p-6 sm:p-8 border-4 border-neutral-900 shadow-[8px_8px_0px_0px_rgba(17,17,17,1)] mb-12">
+        <Reveal className="bg-[#FAF6EE] text-[#1A1512] p-6 sm:p-8 border-4 border-[#1A1512] shadow-[8px_8px_0px_0px_rgba(26,21,18,1)] mb-12">
           <p className="font-serif-body text-xl sm:text-2xl leading-snug">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua.

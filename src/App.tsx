@@ -77,34 +77,27 @@ const BURN_DROPS: {
   { left: '94%', w: 20, h: 88,  bot: -55,  color: 'orange', dur: 0.24, delay: 0.01 },
 ];
 
-/* Vločky k mlze: 12 ks, padají pomalu s oparem */
+/* Vločky k mlze: 6 ks, krátký snos s oparem (after-fáze ≤1.2s,
+   ať nová stránka nezůstává pod šedým závojem) */
 const BURN_ASH_AFTER: {
   left: string; top: string; size: number; tone: 'grey' | 'dark';
   delay: number; dur: number; dx: number; dy: number; drift: number;
 }[] = [
-  { left: '7%',  top: '6%',  size: 8, tone: 'grey', delay: 0.20, dur: 1.9, dx: 30,  dy: 430, drift: 16 },
-  { left: '16%', top: '20%', size: 6, tone: 'dark', delay: 0.55, dur: 1.6, dx: -26, dy: 390, drift: -14 },
-  { left: '25%', top: '3%',  size: 9, tone: 'grey', delay: 0.05, dur: 2.1, dx: 24,  dy: 460, drift: 18 },
-  { left: '36%', top: '14%', size: 6, tone: 'dark', delay: 0.70, dur: 1.5, dx: -30, dy: 380, drift: -16 },
-  { left: '47%', top: '8%',  size: 10, tone: 'grey', delay: 0.15, dur: 2.0, dx: -28, dy: 445, drift: 16 },
-  { left: '56%', top: '22%', size: 6, tone: 'dark', delay: 0.80, dur: 1.6, dx: 26,  dy: 395, drift: -14 },
-  { left: '65%', top: '5%',  size: 9, tone: 'grey', delay: 0.30, dur: 1.9, dx: 22,  dy: 435, drift: 18 },
-  { left: '74%', top: '16%', size: 6, tone: 'dark', delay: 0.90, dur: 1.5, dx: -28, dy: 375, drift: -14 },
-  { left: '84%', top: '7%',  size: 8, tone: 'grey', delay: 0.10, dur: 2.1, dx: -24, dy: 450, drift: -16 },
-  { left: '91%', top: '24%', size: 6, tone: 'dark', delay: 0.60, dur: 1.7, dx: 28,  dy: 400, drift: 14 },
-  { left: '40%', top: '28%', size: 7, tone: 'dark', delay: 0.95, dur: 1.5, dx: 20,  dy: 365, drift: 12 },
-  { left: '69%', top: '30%', size: 7, tone: 'grey', delay: 0.40, dur: 1.8, dx: -18, dy: 405, drift: -12 },
+  { left: '7%',  top: '6%',  size: 5, tone: 'grey', delay: 0.10, dur: 1.1,  dx: 24,  dy: 320, drift: 12 },
+  { left: '25%', top: '3%',  size: 4, tone: 'dark', delay: 0.05, dur: 1.2,  dx: 18,  dy: 350, drift: 14 },
+  { left: '47%', top: '8%',  size: 5, tone: 'grey', delay: 0.15, dur: 1.1,  dx: -20, dy: 330, drift: 12 },
+  { left: '65%', top: '5%',  size: 4, tone: 'dark', delay: 0.20, dur: 1.0,  dx: 16,  dy: 310, drift: 14 },
+  { left: '84%', top: '7%',  size: 4, tone: 'grey', delay: 0.10, dur: 1.15, dx: -18, dy: 340, drift: -12 },
+  { left: '91%', top: '24%', size: 4, tone: 'dark', delay: 0.30, dur: 0.95, dx: 20,  dy: 300, drift: 10 },
 ];
 
-/* Mlha po shoření: 4 velké jemné plochy (žádné zrno) */
+/* Mlha po shoření: 2 jemné teplé plochy (krátce — žádný šedý závoj) */
 const BURN_MIST: {
   left: string; top: string; w: number; h: number; tone: 'grey' | 'dark';
   delay: number; dur: number; dx: number; dy: number;
 }[] = [
-  { left: '-5%', top: '5%',  w: 750, h: 460, tone: 'grey', delay: 0.10, dur: 2.6, dx: 90,  dy: 260 },
-  { left: '30%', top: '25%', w: 850, h: 520, tone: 'dark', delay: 0.45, dur: 2.4, dx: -110, dy: 300 },
-  { left: '55%', top: '0%',  w: 700, h: 440, tone: 'grey', delay: 0.80, dur: 2.2, dx: 70,  dy: 240 },
-  { left: '20%', top: '45%', w: 750, h: 450, tone: 'dark', delay: 1.10, dur: 2.0, dx: -80,  dy: 200 },
+  { left: '-5%', top: '5%',  w: 550, h: 340, tone: 'grey', delay: 0.10, dur: 1.2, dx: 60,  dy: 180 },
+  { left: '30%', top: '25%', w: 520, h: 320, tone: 'dark', delay: 0.20, dur: 1.0, dx: -70, dy: 200 },
 ];
 const BURN_SPARKS = [
   { left: '4%', size: 4, delay: 0.03, dur: 0.30, dx: 14, dy: -160 },
@@ -286,7 +279,7 @@ export default function App() {
   const isHome = location.pathname === '/';
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 flex flex-col font-sans-ui selection:bg-[#C8102E] selection:text-white">
+    <div className="min-h-screen bg-[#FAF6EE] text-[#1A1512] flex flex-col font-sans-ui selection:bg-[#C8102E] selection:text-white">
       {/* Thin red scroll progress bar — jen na home (dle zadání V4) */}
       {isHome && <ScrollProgress />}
       <ScrollToTop />

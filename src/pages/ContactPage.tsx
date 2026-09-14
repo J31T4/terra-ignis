@@ -25,7 +25,7 @@ export const ContactPage: React.FC = () => {
         <Reveal>
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#C8102E] font-bold uppercase tracking-wider border-2 border-neutral-900 hover:bg-neutral-100 transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#FAF6EE] text-[#C8102E] font-bold uppercase tracking-wider border-2 border-[#1A1512] hover:bg-[#F3ECDC] transition-colors"
           >
             <span>Lorem ipsum</span>
           </Link>

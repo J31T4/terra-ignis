@@ -26,8 +26,8 @@ export const Header: React.FC = () => {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/90 backdrop-blur-lg shadow-md border-b-2 border-[#C8102E] py-1.5'
-          : 'bg-white border-b-2 border-neutral-900 py-3'
+          ? 'bg-[#FAF6EE]/90 backdrop-blur-lg shadow-md border-b-2 border-[#C8102E] py-1.5'
+          : 'bg-[#FAF6EE] border-b-2 border-[#1A1512] py-3'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <span
-                className="brand-title font-display font-black tracking-widest text-[#111111] group-hover:text-[#C8102E] transition-colors"
+                className="brand-title font-display font-black tracking-widest text-[#1A1512] group-hover:text-[#C8102E] transition-colors"
                 data-scrolled={isScrolled}
               >
                 TERRA IGNIS
@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
                 Lorem
               </span>
             </div>
-            <p className="text-xs text-neutral-600 font-serif-body italic tracking-wide hidden md:block">
+            <p className="text-xs text-[#6B5E52] font-serif-body italic tracking-wide hidden md:block">
               Lorem ipsum dolor sit amet
             </p>
           </div>
@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
                 `text-sm font-semibold tracking-wide transition-colors border-b-2 pb-0.5 ${
                   isActive
                     ? 'text-[#C8102E] border-[#C8102E]'
-                    : 'text-neutral-800 border-transparent hover:text-[#C8102E]'
+                    : 'text-[#2E2722] border-transparent hover:text-[#C8102E]'
                 }`
               }
             >
@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? 'Zavřít menu' : 'Otevřít menu'}
           aria-expanded={mobileMenuOpen}
-          className="lg:hidden p-2 text-neutral-900 hover:text-[#C8102E] focus:outline-none"
+          className="lg:hidden p-2 text-[#1A1512] hover:text-[#C8102E] focus:outline-none"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -88,7 +88,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile dropdown — stejné 3 položky */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b-2 border-[#C8102E] px-6 py-5 shadow-xl">
+        <div className="lg:hidden bg-[#FAF6EE] border-b-2 border-[#C8102E] px-6 py-5 shadow-xl">
           <nav className="flex flex-col space-y-3 font-semibold text-base" aria-label="Mobilní navigace">
             {NAV.map((item) => (
               <NavLink
@@ -96,7 +96,7 @@ export const Header: React.FC = () => {
                 to={item.to}
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `py-1 ${isActive ? 'text-[#C8102E]' : 'text-neutral-800 hover:text-[#C8102E]'}`
+                  `py-1 ${isActive ? 'text-[#C8102E]' : 'text-[#2E2722] hover:text-[#C8102E]'}`
                 }
               >
                 {item.label}
