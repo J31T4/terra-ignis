@@ -30,7 +30,7 @@ export const LogoImg: React.FC<LogoImgProps> = ({ size = 48, className = '', id 
         height: size,
         width: 'auto',
         objectFit: 'contain',
-        filter: 'drop-shadow(0 2px 5px rgba(17, 17, 17, 0.25))',
+        filter: 'drop-shadow(0 2px 5px rgba(26, 21, 18, 0.22)) drop-shadow(0 0 18px rgba(232, 160, 32, 0.30))',
       }}
     />
   );

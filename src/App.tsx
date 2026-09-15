@@ -229,6 +229,9 @@ function BurnStage({ children }: { children: ReactNode }) {
           {/* Charred edge strip */}
           <div className="page-burn-charred" />
 
+          {/* Žhnoucí linka na čele ohně (pulzující zář) */}
+          <div className="burn-front-line" />
+
           {/* Glow at the base of flames */}
           <div className="burn-glow show" />
 

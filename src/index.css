@@ -25,23 +25,27 @@
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
-/* Woodcut / Hatching patterns for heraldic poster style —
-   křížové ruční šrafování jako bílá kresba v logu (dvě vrstvy ±45°) */
+/* Papírová textura pro malovaný styl —
+   jemné zrno (SVG turbulence ~5 %) + decentní křížové šrafování místo šumu.
+   Dohromady drží ruční papír, ale nepřebíjí obsah (feedback: hrubé šrafování
+   působilo lacině; konsenzus modelů = jemné zrno 4–6 %). */
 .woodcut-hatch {
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(200, 16, 46, 0.07),
-    rgba(200, 16, 46, 0.07) 2px,
-    transparent 2px,
-    transparent 6px
-  ),
-  repeating-linear-gradient(
-    -45deg,
-    rgba(200, 16, 46, 0.05),
-    rgba(200, 16, 46, 0.05) 1px,
-    transparent 1px,
-    transparent 7px
-  );
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(
+      45deg,
+      rgba(200, 16, 46, 0.045),
+      rgba(200, 16, 46, 0.045) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(26, 21, 18, 0.03),
+      rgba(26, 21, 18, 0.03) 1px,
+      transparent 1px,
+      transparent 8px
+    );
 }
 
 .woodcut-hatch-dark {
@@ -190,6 +194,20 @@
   animation: ti-flame-flicker 3s ease-in-out infinite;
 }
 
+/* CTA s tepelnou aurou — drží tvrdý offset (brutal identita webu),
+   ale přidává jemnou ohnivou zář místo studené černé (feedback modelů) */
+.flame-shadow {
+  box-shadow: 4px 4px 0 0 rgba(26, 21, 18, 1), 0 0 22px rgba(200, 16, 46, 0.30);
+}
+.flame-shadow:hover {
+  box-shadow: 2px 2px 0 0 rgba(26, 21, 18, 1), 0 0 30px rgba(232, 160, 32, 0.42);
+}
+
+/* Vyrytý text do papíru — jemný reliéfní efekt na nadpisech (feedback: text-shadow) */
+.ink-carve {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 -1px 0 rgba(26, 21, 18, 0.10);
+}
+
 /* ================================================================ */
 /* V5.0 Page transition — ilustrovaný oheň (illustrated fire)      */
 /* Individuální flame-tongues s animovaným border-radius,           */
@@ -279,6 +297,26 @@
   100% { opacity: 0; }
 }
 
+/* --- Žhnoucí linka na čele ohně: pulzující zář u spodní hrany plamenů
+   (feedback: 10–15px žhnoucí/zuhelnatělý pás s pulzující linkou #ff4500 → #ffe066) --- */
+.burn-front-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #FF4500 16%, #FFE066 50%, #FF4500 84%, transparent 100%);
+  filter: blur(1.6px) drop-shadow(0 0 10px rgba(255, 80, 0, 0.75));
+  animation: ti-front-pulse 0.22s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes ti-front-pulse {
+  0%   { opacity: 0.55; transform: scaleX(0.998); }
+  100% { opacity: 1; transform: scaleX(1.004); }
+}
+
 /* --- Flame band: full-width container that rises --- */
 .page-burn-edge {
   position: absolute;
@@ -330,13 +368,13 @@
   background: linear-gradient(
     0deg,
     #7A0C10 0%,
-    #FF9E00 18%,
-    #FFD23F 42%,
-    #FFE9A8 58%,
+    #FF7A00 20%,
+    #FFD23F 45%,
+    #FFF9C0 62%,
     #FB8500 82%,
     rgba(230, 57, 4, 0) 100%
   );
-  filter: drop-shadow(1px 1px 0 rgba(90, 20, 10, 0.85));
+  filter: drop-shadow(1px 1px 0 rgba(90, 20, 10, 0.8)) blur(0.6px);
   animation: var(--ft-anim, ti-tongue-gold) var(--ft-dur, 0.35s) ease-in-out infinite alternate;
   animation-delay: var(--ft-delay, 0s);
 }
@@ -354,13 +392,13 @@
   background: linear-gradient(
     0deg,
     #8A1A08 0%,
-    #E63904 20%,
-    #FB8500 42%,
-    #FFD9A0 62%,
-    #FFB703 82%,
+    #E63904 22%,
+    #FB8500 45%,
+    #FFD9A0 64%,
+    #FFB703 84%,
     rgba(200, 40, 0, 0) 100%
   );
-  filter: drop-shadow(1px 1px 0 rgba(90, 20, 10, 0.85));
+  filter: drop-shadow(1px 1px 0 rgba(90, 20, 10, 0.8)) blur(0.6px);
   animation: var(--ft-anim, ti-tongue-orange) var(--ft-dur, 0.3s) ease-in-out infinite alternate;
   animation-delay: var(--ft-delay, 0.05s);
 }
@@ -602,6 +640,20 @@
 /* Smooth scroll na anchor odkazy + pristupove preference */
 html {
   scroll-behavior: smooth;
+}
+
+/* Přechod do patičky: malovaný gradient (tmavá krev → oheň → tmavá krev)
+   místo ostré červené linky (feedback: změkčit přechod do patičky) */
+.footer-edge {
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #7A0C10 0%,
+    #C8102E 30%,
+    #E8A020 50%,
+    #C8102E 70%,
+    #7A0C10 100%
+  ) 1;
 }
 
 /* Header: plynule zmensovani znaku a titulku po scrollu */

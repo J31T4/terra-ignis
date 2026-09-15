@@ -9,7 +9,7 @@ export const HomePage: React.FC = () => {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative bg-[#FAF6EE] text-[#1A1512] pt-8 pb-14 md:pt-12 md:pb-20 border-b-4 border-[#C8102E] overflow-hidden woodcut-hatch">
+    <section className="relative bg-[#FAF6EE] text-[#1A1512] pt-12 pb-14 md:pt-16 md:pb-20 border-b-4 border-[#C8102E] overflow-hidden woodcut-hatch">
       <motion.div
         className="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10"
         variants={staggerContainer(0.14, 0.1)}
@@ -22,14 +22,14 @@ export const HomePage: React.FC = () => {
 
         <motion.h1
           variants={fadeRise}
-          className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-tight leading-[1.08] text-[#1A1512] uppercase max-w-4xl mx-auto mb-6"
+          className="ink-carve font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-tight leading-[1.08] text-[#1A1512] uppercase max-w-4xl mx-auto mb-6"
         >
           Lorem ipsum dolor sit amet
         </motion.h1>
 
         <motion.p
           variants={fadeRise}
-          className="text-lg sm:text-xl text-[#4A4038] max-w-3xl mx-auto font-serif-body leading-relaxed mb-8"
+          className="text-lg sm:text-xl text-[#3A312A] max-w-3xl mx-auto font-serif-body leading-relaxed mb-8"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua.
@@ -38,7 +38,7 @@ export const HomePage: React.FC = () => {
         <motion.div variants={fadeRise} className="flex justify-center">
           <Link
             to="/kontakt"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#C8102E] text-white px-8 py-4 text-base sm:text-lg font-bold tracking-wider uppercase border-2 border-[#1A1512] shadow-[4px_4px_0px_0px_rgba(26,21,18,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,21,18,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#C8102E] text-white px-8 py-4 text-base sm:text-lg font-bold tracking-wider uppercase border-2 border-[#1A1512] flame-shadow hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
           >
             <span>Lorem ipsum</span>
           </Link>

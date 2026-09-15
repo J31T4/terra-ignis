@@ -13,7 +13,7 @@ export const ReferencesPage: React.FC = () => {
   const reduced = useReducedMotion();
 
   return (
-    <section className="py-14 md:py-20 bg-neutral-900 text-white relative woodcut-hatch-dark border-b-4 border-neutral-900">
+    <section className="py-14 md:py-20 bg-neutral-900 text-white relative woodcut-hatch-dark border-b-4 border-[#1A1512]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <Reveal className="border-b-2 border-white/20 pb-6 mb-10">
           <FlameFlash blend="screen">

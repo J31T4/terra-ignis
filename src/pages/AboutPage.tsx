@@ -11,7 +11,7 @@ const CARDS = [
 /** About — minimal demo. */
 export const AboutPage: React.FC = () => {
   return (
-    <section className="py-14 md:py-20 bg-[#C8102E] text-white relative overflow-hidden woodcut-hatch-dark border-b-4 border-neutral-900">
+    <section className="py-14 md:py-20 bg-[#C8102E] text-white relative overflow-hidden woodcut-hatch-dark border-b-4 border-[#1A1512]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <Reveal className="border-b-2 border-white/30 pb-6 mb-12">
           <FlameFlash blend="screen">
